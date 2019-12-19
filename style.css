@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html
+{
+    height: 100%;
+}
+
+#header
+{
+    width: 100%;
+    height: 50px;
+    position: relative;
+    background-color: #424242;
+}
+
+h2
+{
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 20px;
+}
+
+ul 
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+  
+li 
+{
+    float: left;
+}
+
+li a 
+{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover 
+{
+    background-color: #111;
+}
+
+#main
+{
+    width: 100%;
+    height: calc( 100% - 50px ); /* 50px because height of header is 50px */ 
+}
+
+
+#form
+{
+    display: block;
+    width: 350px;
+    padding: 10px 10px;
+    font-size: 15px;
+    margin: 15% auto 0 auto;
+    
+}
+
+.moveUp
+{
+    animation-name: moveUp;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes moveUp
+{
+    0% {
+        transform: translateY(0);
+    }
+
+    60%
+    {
+        transform: translateY(-179px); 
+    }
+
+    100% {
+        transform: translateY(-168px);
+    }
+}
+
