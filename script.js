@@ -14,7 +14,11 @@ cityInput.addEventListener("keyup", function(event){
         { 
             moved = true;
             searchDiv.classList.add("moveUp");
-            document.body.app
+            setTimeout(function(){
+                main.appendChild(imageDiv);
+                imageDiv.classList.add("gif");
+            }, 1500);
+            
         }
     }
 });

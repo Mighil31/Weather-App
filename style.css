@@ -96,3 +96,12 @@ li a
     }
 }
 
+
+.gif
+{
+    border: 2px solid green;
+    width: 320px;
+    height: 290px;
+    margin: -150px auto;
+}
+
