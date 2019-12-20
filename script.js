@@ -49,41 +49,74 @@ cityInput.addEventListener("keyup", function(event)
 
             main.appendChild(inputDiv);
             inputDiv.innerHTML = radioHtml;
-            inputDiv.classList.add('tempType')
+            inputDiv.classList.add('tempType');
 
             resultDiv.appendChild(leftResult);
             resultDiv.appendChild(midResult);
             resultDiv.appendChild(rightResult);
 
         }
-
+        removeData();
         getData(cityInput.value);  
 
     }
 
 });
 
+function removeData()
+{
+    temperature.textContent = "";
+    place.textContent = "";
+    condition.textContent = "";
+    imageDiv.style.backgroundImage = null;
+    main.removeChild(inputDiv); 
+}
+
 async function getData(enteredPlace) 
 {
-
+    showSpinner();
     console.log(`http://api.openweathermap.org/data/2.5/weather?q=${enteredPlace}&units=metric&APPID=9dde51698ed12a242e93c14b7420f478`)
     const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${enteredPlace}&units=metric&APPID=9dde51698ed12a242e93c14b7420f478`, 
         {mode: 'cors'});
     const data = await response.json();
-    getGif(data.weather[0].description);
-    if(data.cod == 200)
+    setTimeout(function() 
     {
-        console.log(data);
-        temperature.textContent = data.main.temp;
-        place.textContent = data.name;
-        condition.textContent = data.weather[0].description;
-    }
+        if(data.cod == 200)
+        {
+            getGif(data.weather[0].main);
+            console.log(data);
+            temperature.textContent = data.main.temp + "°C";
+            place.textContent = data.name;
+            let lower = data.weather[0].description;
+            condition.textContent = lower.charAt(0).toUpperCase() + lower.substring(1);       
+        }
+    }, 1500);  
+    
+    main.appendChild(inputDiv);
+    inputDiv.innerHTML = radioHtml;
+    inputDiv.classList.add('tempType');
     
 }
 
 async function getGif(cond)
 {
     const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=aozK5UQ0JBZcL8oNtHIA9ho684DCIDfV&q=${cond}&limit=25&offset=0&rating=R&lang=en`, {mode: 'cors'})
+    hideSpinner();
     const pic = await response.json();
     imageDiv.style.backgroundImage = `url(${pic.data[0].images.original.url})`;
 }
+
+const spinner = document.getElementById("spinner");
+
+function showSpinner() {
+  spinner.className = "show";
+  setTimeout(() => {
+    spinner.className = spinner.className.replace("show", "");
+  }, 5000);
+}
+
+function hideSpinner() {
+  spinner.className = spinner.className.replace("show", "");
+}
+
+
