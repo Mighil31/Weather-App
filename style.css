@@ -69,7 +69,9 @@ li a
     width: 350px;
     padding: 10px 10px;
     font-size: 15px;
-    margin: 15% auto 0 auto;
+    margin: 2% auto 0 auto;
+    border: none;
+    border-bottom: 1px solid red;
     
 }
 
@@ -80,28 +82,20 @@ li a
     animation-fill-mode: forwards;
 }
 
-@keyframes moveUp
-{
-    0% {
-        transform: translateY(0);
-    }
-
-    60%
-    {
-        transform: translateY(-179px); 
-    }
-
-    100% {
-        transform: translateY(-168px);
-    }
-}
-
-
 .gif
 {
     border: 2px solid green;
     width: 320px;
     height: 290px;
-    margin: -150px auto;
+    margin: 40px auto 0 auto;
+}
+
+.result
+{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    border: 1px solid red;
+    margin: 40px auto 0 auto;
 }
 
