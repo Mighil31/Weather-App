@@ -84,7 +84,6 @@ li a
 
 .gif
 {
-    border: 2px solid green;
     width: 320px;
     height: 290px;
     margin: 40px auto 0 auto;
@@ -128,7 +127,7 @@ li a
     align-items: center;
 }
 
-.place
+.plac
 {
     font-size: 50px;
 }

@@ -36,17 +36,14 @@ cityInput.addEventListener("keyup", function(event)
             resultDiv.classList.add("result");
 
             leftResult.classList.add('left');
-            place.textContent = cityInput.value;
-            place.classList.add('place');
+            place.classList.add('plac');   
             leftResult.appendChild(place);
 
             midResult.classList.add('mid');
-            temperature.textContent = "26C";
             temperature.classList.add('temp');
             midResult.appendChild(temperature);
 
             rightResult.classList.add('right');
-            condition.textContent = "HOT AF";
             condition.classList.add('cond');
             rightResult.appendChild(condition);
 
@@ -60,6 +57,33 @@ cityInput.addEventListener("keyup", function(event)
 
         }
 
+        getData(cityInput.value);  
+
     }
 
 });
+
+async function getData(enteredPlace) 
+{
+
+    console.log(`http://api.openweathermap.org/data/2.5/weather?q=${enteredPlace}&units=metric&APPID=9dde51698ed12a242e93c14b7420f478`)
+    const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${enteredPlace}&units=metric&APPID=9dde51698ed12a242e93c14b7420f478`, 
+        {mode: 'cors'});
+    const data = await response.json();
+    getGif(data.weather[0].description);
+    if(data.cod == 200)
+    {
+        console.log(data);
+        temperature.textContent = data.main.temp;
+        place.textContent = data.name;
+        condition.textContent = data.weather[0].description;
+    }
+    
+}
+
+async function getGif(cond)
+{
+    const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=aozK5UQ0JBZcL8oNtHIA9ho684DCIDfV&q=${cond}&limit=25&offset=0&rating=R&lang=en`, {mode: 'cors'})
+    const pic = await response.json();
+    imageDiv.style.backgroundImage = `url(${pic.data[0].images.original.url})`;
+}
