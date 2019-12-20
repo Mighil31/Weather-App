@@ -92,10 +92,73 @@ li a
 
 .result
 {
-    width: 100%;
-    height: 100px;
+    width: 80%;
+    height: 90px;
     display: flex;
     border: 1px solid red;
-    margin: 40px auto 0 auto;
+    margin: 35px auto 0 auto;
 }
+
+.left
+{
+    width: 30px;
+    flex-grow: 1;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.right
+{
+    width: 30px;
+    flex-grow: 1;
+    display: flex;
+    border: 1px solid blue;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mid
+{
+    width: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.place
+{
+    border: 1px solid green;
+    font-size: 30px;
+}
+
+.tempType
+{
+    width: 100%;
+    border: 1px solid green;
+    
+}
+
+.temp
+{
+    font-size: 55px;
+}
+
+.tempTypeInput
+{
+    margin: 10px; 
+}
+
+.cond
+{
+    font-size: 40px;
+}
+
+
 
