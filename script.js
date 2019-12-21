@@ -8,54 +8,59 @@ const leftResult = document.createElement('div');
 const midResult = document.createElement('div');
 const rightResult = document.createElement('div');
 const inputDiv = document.createElement('div');
+const masterDiv = document.createElement('div');
 let place = document.createElement('div');
 let temperature = document.createElement('div');
 let condition = document.createElement('div');
+let errorDiv = document.createElement('div');
 
 let prev = true;
 
 var radioHtml = '<input class="tempTypeInput" type="checkbox" id="#celc"';
 radioHtml += ' checked="checked"';
-radioHtml += '>Celcius</input>';
+radioHtml += '><label>Celcius</label></input>';
 radioHtml.textContent = "Celcius"
 
 cityInput.value = "";
 let first = true;
 
+
+function init()
+{
+    main.appendChild(masterDiv);
+
+    masterDiv.appendChild(imageDiv);
+    imageDiv.classList.add("gif");       
+    masterDiv.appendChild(resultDiv);
+    resultDiv.classList.add("result");
+
+    leftResult.classList.add('left');
+    place.classList.add('plac');   
+    leftResult.appendChild(place);
+
+    midResult.classList.add('mid');
+    temperature.classList.add('temp');
+    midResult.appendChild(temperature);
+
+    rightResult.classList.add('right');
+    condition.classList.add('cond');
+    rightResult.appendChild(condition);
+
+    masterDiv.appendChild(inputDiv);
+    inputDiv.innerHTML = radioHtml;
+    inputDiv.classList.add('tempType');
+
+    resultDiv.appendChild(leftResult);
+    resultDiv.appendChild(midResult);
+    resultDiv.appendChild(rightResult);
+}
+
+
 cityInput.addEventListener("keyup", function(event)
 {
     if(event.keyCode === 13)
-    {
-        if(first) //first time entering then divs have to be loaded
-        {
-            first = false;
-
-            main.appendChild(imageDiv);
-            imageDiv.classList.add("gif");       
-            main.appendChild(resultDiv);
-            resultDiv.classList.add("result");
-
-            leftResult.classList.add('left');
-            place.classList.add('plac');   
-            leftResult.appendChild(place);
-
-            midResult.classList.add('mid');
-            temperature.classList.add('temp');
-            midResult.appendChild(temperature);
-
-            rightResult.classList.add('right');
-            condition.classList.add('cond');
-            rightResult.appendChild(condition);
-
-            main.appendChild(inputDiv);
-            inputDiv.innerHTML = radioHtml;
-            inputDiv.classList.add('tempType');
-
-            resultDiv.appendChild(leftResult);
-            resultDiv.appendChild(midResult);
-            resultDiv.appendChild(rightResult);
-
-        }
+    {   
+        init();
         removeData();
         getData(cityInput.value);  
 
@@ -69,7 +74,10 @@ function removeData()
     place.textContent = "";
     condition.textContent = "";
     imageDiv.style.backgroundImage = null;
-    main.removeChild(inputDiv); 
+    if(document.querySelector('.tempTypeInput'))
+        masterDiv.removeChild(inputDiv); 
+    if(document.querySelector('.error'))
+        main.removeChild(errorDiv)
 }
 
 async function getData(enteredPlace) 
@@ -83,21 +91,30 @@ async function getData(enteredPlace)
     {
         if(data.cod == 200)
         {
-
             getGif(data.weather[0].main);
             console.log(data);
             temperature.textContent = data.main.temp + "°C";
             place.textContent = data.name;
             let lower = data.weather[0].description;
-            condition.textContent = lower.charAt(0).toUpperCase() + lower.substring(1);       
+            condition.textContent = lower.charAt(0).toUpperCase() + lower.substring(1);   
+            
+            main.appendChild(inputDiv);
+            inputDiv.innerHTML = radioHtml;
+            inputDiv.classList.add('tempType');
+            inputDiv.id = "tempType";
+            document.querySelector('.tempType').addEventListener('change', change);
+        }
+        else
+        {
+            hideSpinner();
+            main.removeChild(masterDiv);
+            main.appendChild(errorDiv);
+            errorDiv.classList.add("error");       
+            errorDiv.textContent = "Such a place does not exist"
         }
     }, 1500);  
     
-    main.appendChild(inputDiv);
-    inputDiv.innerHTML = radioHtml;
-    inputDiv.classList.add('tempType');
-    inputDiv.id = "tempType";
-    document.querySelector('.tempType').addEventListener('change', change);
+    
 
 }
 
