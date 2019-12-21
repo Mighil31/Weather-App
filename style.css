@@ -7,6 +7,7 @@
 body, html
 {
     height: 100%;
+    background-color: #303030;
 }
 
 #header
@@ -72,7 +73,8 @@ li a
     margin: 2% auto 0 auto;
     border: none;
     border-bottom: 1px solid red;
-    
+    background-color: #303030;
+    color: white;
 }
 
 .moveUp
@@ -130,6 +132,7 @@ li a
 .plac
 {
     font-size: 50px;
+    color: white;
 }
 
 .tempType
@@ -141,16 +144,24 @@ li a
 .temp
 {
     font-size: 55px;
+    color: white;
 }
 
 .tempTypeInput
 {
     margin-right: 10px; 
+    color: white;
+}
+
+#tempTypeInput
+{
+    color: white;
 }
 
 .cond
 {
     font-size: 40px;
+    color: white;
 }
 
 #spinner{
