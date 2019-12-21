@@ -12,14 +12,12 @@ let place = document.createElement('div');
 let temperature = document.createElement('div');
 let condition = document.createElement('div');
 
-
 var radioHtml = '<input class="tempTypeInput" type="checkbox" id="#celc"';
 radioHtml += ' checked="checked"';
 radioHtml += '>Celcius</input>';
 radioHtml.textContent = "Celcius"
 
 cityInput.value = "";
-let moved = false;
 let first = true;
 
 cityInput.addEventListener("keyup", function(event)
@@ -83,6 +81,7 @@ async function getData(enteredPlace)
     {
         if(data.cod == 200)
         {
+
             getGif(data.weather[0].main);
             console.log(data);
             temperature.textContent = data.main.temp + "°C";
@@ -95,7 +94,9 @@ async function getData(enteredPlace)
     main.appendChild(inputDiv);
     inputDiv.innerHTML = radioHtml;
     inputDiv.classList.add('tempType');
-    
+    inputDiv.id = "tempType";
+    document.querySelector('.tempType').addEventListener('click', change);
+
 }
 
 async function getGif(cond)
@@ -117,6 +118,21 @@ function showSpinner() {
 
 function hideSpinner() {
   spinner.className = spinner.className.replace("show", "");
+}
+
+function change() 
+{
+    let temp = parseFloat(temperature.textContent);
+    var checkBox = document.querySelector('.tempTypeInput');
+    console.log(checkBox.checked)
+    if(checkBox.checked) {
+        let value = (temp - 32)*(5/9);
+        temperature.textContent = value+ "°C";
+    } else {
+        let value = temp*(9/5) + 32;
+        temperature.textContent = value+ "°F";
+    }
+
 }
 
 
