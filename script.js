@@ -104,7 +104,8 @@ async function getGif(cond)
     const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=aozK5UQ0JBZcL8oNtHIA9ho684DCIDfV&q=${cond}&limit=25&offset=0&rating=R&lang=en`, {mode: 'cors'})
     hideSpinner();
     const pic = await response.json();
-    imageDiv.style.backgroundImage = `url(${pic.data[0].images.original.url})`;
+    let num = Math.ceil(Math.random() * 6)-1;
+    imageDiv.style.backgroundImage = `url(${pic.data[num].images.original.url})`;
 }
 
 const spinner = document.getElementById("spinner");
